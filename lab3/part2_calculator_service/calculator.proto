@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package calculator;
+
+// Request for calculator operations
+message CalculatorRequest {
+  double a = 1;
+  double b = 2;
+}
+
+// Response for calculator operations
+message CalculatorResponse {
+  double result = 1;
+}
+
+// Calculator service definition
+service CalculatorService {
+  // Add two numbers
+  rpc Add(CalculatorRequest) returns (CalculatorResponse);
+  // Subtract two numbers
+  rpc Subtract(CalculatorRequest) returns (CalculatorResponse);
+  // Multiply two numbers
+  rpc Multiply(CalculatorRequest) returns (CalculatorResponse);
+  // Divide two numbers
+  rpc Divide(CalculatorRequest) returns (CalculatorResponse);
+}
