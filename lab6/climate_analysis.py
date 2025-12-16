@@ -160,6 +160,14 @@ def main():
     print("=" * 60)
     print("Spark Climate Data Analysis Application")
     print("=" * 60)
+    print("\n[SCREENSHOT POINT 1]")
+    print("Spark Web UI is now available at: http://localhost:4040")
+    print("Please take screenshots of:")
+    print("  - Jobs page (shows all jobs)")
+    print("  - DAG Visualization (execution plan)")
+    print("  - Stages page (stage breakdown)")
+    print("  - Executors page (executor status)")
+    print("=" * 60)
     
     # ========== 1. Data Loading ==========
     print("\n[1] Loading data from:", input_dir)
@@ -170,6 +178,7 @@ def main():
     data_rdd = raw_rdd.filter(lambda line: line != header)
     
     print(f"Total lines (excluding header): {data_rdd.count()}")
+    print("\n[SCREENSHOT POINT 2] After data loading - Check Jobs page in Web UI")
     
     # ========== 2. Data Cleaning and Transformation ==========
     print("\n[2] Parsing and cleaning records...")
@@ -188,6 +197,7 @@ def main():
     monthly_output = monthly_temp.map(lambda x: f"{x[0][0]},{x[0][1]},{x[0][2]},{x[1]:.2f}")
     monthly_output.coalesce(1).saveAsTextFile(f"{output_dir}/monthly_avg_temperature")
     print(f"Monthly average temperatures saved to: {output_dir}/monthly_avg_temperature")
+    print("[SCREENSHOT POINT 3] After monthly aggregation - Check DAG Visualization")
     
     # ========== 4. Yearly Average Temperatures per Station ==========
     print("\n[4] Computing yearly average temperatures per station...")
@@ -234,6 +244,7 @@ def main():
     trends_output = trends.map(lambda x: f"{x[0]},{x[1]:.4f},{x[2]}")
     trends_output.coalesce(1).saveAsTextFile(f"{output_dir}/temperature_trends")
     print(f"Temperature trends saved to: {output_dir}/temperature_trends")
+    print("[SCREENSHOT POINT 4] After temperature trends - Check Stages page for complex operations")
     
     # ========== 6. Seasonal Precipitation Averages ==========
     print("\n[6] Computing seasonal precipitation averages...")
@@ -332,9 +343,17 @@ def main():
         print(line)
     print("=" * 60)
     
+    print("\n[SCREENSHOT POINT 5] Final State - Take screenshots of:")
+    print("  - Complete DAG Visualization (all stages)")
+    print("  - All Jobs summary")
+    print("  - Executors page (final state)")
+    print("  - Environment page (Spark configuration)")
+    print("=" * 60)
+    
     # Stop SparkContext
     sc.stop()
     print("\n✓ Analysis completed successfully!")
+    print("Note: Spark Web UI will close after SparkContext stops")
 
 
 if __name__ == "__main__":
